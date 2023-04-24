@@ -1,0 +1,42 @@
+//java
+class Solution {
+    public int lastStoneWeight(int[] stones) {
+        PriorityQueue<Integer> heap = new PriorityQueue<>((a,b)->b-a);
+        for(int yo:stones)
+        heap.add(yo);
+        while(heap.size()>1)
+        {
+            int temp1 = heap.poll();
+            int temp2 = heap.poll();
+            int diff  = Math.abs(temp1-temp2);
+            if(diff!=0)
+            {
+                heap.add(diff);
+            }
+        }
+        if(heap.size()!=0)
+        {
+            return heap.poll();
+        }
+        return 0;
+    }
+}
+//c++
+class Solution {
+public:
+    int lastStoneWeight(vector<int>& a) {
+        priority_queue<int>pq(a.begin(),a.end());
+
+        while(pq.size() > 1)
+        {
+            int a = pq.top();
+            pq.pop();
+            int b = pq.top();
+            pq.pop();
+
+            if(a != b)
+                pq.push(abs(a-b));
+        }
+        return pq.empty() ? 0 : pq.top();
+    }
+};
